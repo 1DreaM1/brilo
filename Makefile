@@ -1,4 +1,4 @@
-.PHONY: help run build docker clean vendor stop test
+.PHONY: help run build docker clean vendor stop
 
 SYMFONY_ENV ?= dev
 SYMFONY_ASSETS_INSTALL ?= relative
@@ -75,11 +75,3 @@ stop:
 ## Clean vendors, cache, logs, assets, etc.
 clean:
 	rm -rf vendor/ var/cache/* var/logs/* .docker/
-
-#######################
-# TESTING TASKS
-#######################
-
-## Run all tests
-test:
-	test `find ./src -iname "*.php" | xargs -n1 -P6 php -l | grep -Fv "No syntax errors" | wc -l` -eq 0

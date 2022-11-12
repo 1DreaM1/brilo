@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     container_name: php-apache-brilo
     ports:
-      - "8080:80"
       - "8910:80"
     volumes:
       - ./:/var/www/html

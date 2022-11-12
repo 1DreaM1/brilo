@@ -1,14 +1,12 @@
-.PHONY: help clean build vendor test php-cs-fixer
+.PHONY: help clean build vendor test
 
 SYMFONY_ENV ?= dev
-SYMFONY_CONSOLE_ARGS ?= --env=dev
 SYMFONY_ASSETS_INSTALL ?= relative
 COMPOSER_ARGS ?=
 PHP=php
 
 ifneq ($(SYMFONY_ENV), dev)
     COMPOSER_ARG = --optimize-autoloader --no-dev --no-suggest --no-interaction --classmap-authoritative
-    SYMFONY_CONSOLE_ARGS = --env=$(SYMFONY_ENV) --no-debug
     SYMFONY_ASSETS_INSTALL = hard
 endif
 
@@ -50,6 +48,10 @@ __check_defined = \
 # BUILDING TASKS
 #######################
 
+## Build and Run project
+run: build
+	@printf "Available at: http://localhost:8910\n"
+
 ## Install all package dependencies and assets
 build: docker
 
@@ -74,12 +76,6 @@ clean:
 # TESTING TASKS
 #######################
 
-## Run all tests (unit tests, code style, linters, etc.)
+## Run all tests
 test:
 	test `find ./src -iname "*.php" | xargs -n1 -P6 php -l | grep -Fv "No syntax errors" | wc -l` -eq 0
-#	vendor/bin/php-cs-fixer fix --diff --dry-run -v
-	php app/console $(SYMFONY_CONSOLE_ARGS) security:check
-	php app/console $(SYMFONY_CONSOLE_ARGS) lint:yaml app
-	php app/console $(SYMFONY_CONSOLE_ARGS) lint:yaml src
-	php app/console $(SYMFONY_CONSOLE_ARGS) lint:twig src app
-	php -f ./phpunit

@@ -1,4 +1,4 @@
-.PHONY: help clean build vendor test
+.PHONY: help run build docker clean vendor stop test
 
 SYMFONY_ENV ?= dev
 SYMFONY_ASSETS_INSTALL ?= relative

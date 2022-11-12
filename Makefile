@@ -68,6 +68,10 @@ vendor: composer.lock
 composer.lock:
 	composer update --lock $(COMPOSER_ARGS)
 
+## Stop server
+stop:
+	docker-compose stop
+
 ## Clean vendors, cache, logs, assets, etc.
 clean:
 	rm -rf vendor/ var/cache/* var/logs/* .docker/

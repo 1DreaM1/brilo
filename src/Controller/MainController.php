@@ -10,9 +10,7 @@ use Throwable;
 
 class MainController extends AbstractController {
 
-    /**
-     * @Route("/", name="main")
-     */
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         $client = HttpClient::createForBaseUri(

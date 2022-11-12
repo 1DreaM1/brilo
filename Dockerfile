@@ -1,6 +1,6 @@
-FROM php:7.2-apache
+FROM php:8.1-apache
 
-COPY .docker/php-apache/php.ini /usr/local/etc/php/
+#COPY .docker/php-apache/php.ini /usr/local/etc/php/
 
 RUN apt-get update -y && apt-get install -y -qq git \
 	apt-transport-https \

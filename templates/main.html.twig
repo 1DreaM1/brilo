@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block meta %}
-    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="refresh" content="{{ refresh }}">
 {% endblock %}
 
-{% block title %}{{ chartName ?? "" }}{% endblock %}
+{% block title %}{{ chartName ?? "" }} Prices{% endblock %}
 
 {% block body %}
     {% if bpi ?? false %}
-        <h2>{{ chartName ?? "" }}:</h2>
+        <h2>{{ chartName ?? "" }} Prices:</h2>
         <small>Updated: {{ time.updated ?? "" }}</small><br>
-        <small>Next refresh: <span id="countdown">100</span>sec</small><br>
         {% for price in bpi ?? [] %}
             <strong>{{ price.code }}: </strong> {{ price.rate }} {{ price.symbol|raw }}<br>
         {% endfor %}
@@ -19,6 +18,7 @@
         {{ error }}
     {% endif %}
     <br>
+    <small>Next refresh: <span id="countdown">{{ refresh }}</span>sec</small><br>
     <button onclick="window.location.reload();">Refresh</button>
 {% endblock %}
 

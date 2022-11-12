@@ -23,6 +23,8 @@ class MainController extends AbstractController {
             $data = ["error" => $e->getMessage()];
         }
 
+        $data["refresh"] = $this->getParameter("refresh_interval");
+
         return $this->render('main.html.twig', $data);
     }
 }

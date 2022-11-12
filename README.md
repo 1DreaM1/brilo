@@ -11,4 +11,3 @@ Available targets:
 - composer.lock:   Update / create composer.lock file
 - stop:            Stop server
 - clean:           Clean vendors, cache, logs, assets, etc.
-- test:            Run all tests

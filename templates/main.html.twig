@@ -9,7 +9,8 @@
 {% block body %}
     {% if bpi ?? false %}
         <h2>{{ chartName ?? "" }}:</h2>
-        Updated: {{ time.updated ?? "" }}<br>
+        <small>Updated: {{ time.updated ?? "" }}</small><br>
+        <small>Next refresh: <span id="countdown">100</span>sec</small><br>
         {% for price in bpi ?? [] %}
             <strong>{{ price.code }}: </strong> {{ price.rate }} {{ price.symbol|raw }}<br>
         {% endfor %}
@@ -17,4 +18,15 @@
         <h2>No Data</h2>
         {{ error }}
     {% endif %}
+    <br>
+    <button onclick="window.location.reload();">Refresh</button>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        setInterval(function () {
+            const countdown = document.getElementById("countdown");
+            countdown.innerHTML = (parseInt(countdown.innerHTML) - 1).toString();
+        }, 1000);
+    </script>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="60">
+{% endblock %}
+
+{% block title %}{{ chartName ?? "" }}{% endblock %}
+
+{% block body %}
+    {% if bpi ?? false %}
+        <h2>{{ chartName ?? "" }}:</h2>
+        Updated: {{ time.updated ?? "" }}<br>
+        {% for price in bpi ?? [] %}
+            <strong>{{ price.code }}: </strong> {{ price.rate }} {{ price.symbol|raw }}<br>
+        {% endfor %}
+    {% else %}
+        <h2>No Data</h2>
+        {{ error }}
+    {% endif %}
+{% endblock %}

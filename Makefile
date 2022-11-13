@@ -53,20 +53,20 @@ run: build
 	@printf "Available at: http://localhost:8910\n"
 
 ## Install all package dependencies and assets
-build: docker
-
-## Install and run docker
-docker: vendor
-	docker-compose up -d
+build: vendor
 
 ## Install vendor folder
 vendor: composer.lock
-	composer config extra.symfony-assets-install $(SYMFONY_ASSETS_INSTALL)
-	composer install $(COMPOSER_ARGS)
+	docker exec -ti php-apache-brilo sh -c "composer config extra.symfony-assets-install $(SYMFONY_ASSETS_INSTALL)"
 
 ## Update / create composer.lock file
-composer.lock:
-	composer update --lock $(COMPOSER_ARGS)
+composer.lock: docker
+	docker exec -ti php-apache-brilo sh -c "composer install $(COMPOSER_ARGS)"
+	docker exec -ti php-apache-brilo sh -c "composer update --lock $(COMPOSER_ARGS)"
+
+## Install and run docker
+docker:
+	docker-compose up -d
 
 ## Stop server
 stop:
@@ -74,4 +74,5 @@ stop:
 
 ## Clean vendors, cache, logs, assets, etc.
 clean:
+	docker-compose down
 	rm -rf vendor/ var/cache/* var/logs/* .docker/
